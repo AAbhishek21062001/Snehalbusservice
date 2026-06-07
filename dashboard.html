@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – Snehal School Bus Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #FFD600;
+    --yellow-dark: #F9A800;
+    --orange: #FF6B00;
+    --navy: #1A2456;
+    --navy-light: #253070;
+    --sky: #E8F4FD;
+    --white: #FFFFFF;
+    --text: #1A2456;
+    --muted: #5A6380;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --bg-color: #F5F7FF;
+    --card-shadow: 0 8px 24px rgba(26,36,86,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg-color);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP HEADER ── */
+  .top-header {
+    background: var(--white);
+    height: 76px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    position: sticky; top: 0; z-index: 90;
+  }
+
+  .header-left {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .header-logo-icon {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+
+  .header-logo-text {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 800; font-size: 22px;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+  .header-logo-text span { color: var(--yellow); }
+
+  /* ── PROFILE & DROPDOWN ── */
+  .user-profile-wrapper {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .user-profile {
+    display: flex; align-items: center; gap: 12px;
+    padding: 6px;
+    border-radius: 50px;
+    transition: background 0.2s;
+  }
+  
+  .user-profile:hover {
+    background: var(--bg-color);
+  }
+
+  .user-avatar {
+    width: 44px; height: 44px;
+    background: var(--sky); color: var(--navy);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 18px; border: 2px solid var(--yellow);
+  }
+
+  .user-info { display: flex; flex-direction: column; }
+  .user-name { font-weight: 800; font-size: 15px; color: var(--navy); line-height: 1.2; }
+  .user-role { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+  .dropdown-menu {
+    position: absolute; top: 100%; right: 0; margin-top: 10px;
+    background: var(--white); border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(26,36,86,0.12);
+    width: 180px; display: none; flex-direction: column;
+    overflow: hidden; z-index: 100; border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .dropdown-menu.active { display: flex; animation: fadeInDown 0.2s ease; }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dropdown-item {
+    padding: 14px 16px; background: transparent; border: none;
+    text-align: left; font-size: 15px; font-weight: 700;
+    color: var(--navy); cursor: pointer; display: flex; gap: 10px; align-items: center;
+    font-family: 'Nunito', sans-serif; transition: background 0.2s;
+  }
+  .dropdown-item:hover { background: var(--bg-color); }
+  .dropdown-item.text-danger { color: var(--red); }
+  .dropdown-item.text-danger:hover { background: rgba(231, 76, 60, 0.1); }
+
+  /* ── MULTI-CHILD TABS STYLES ── */
+  .child-tabs-container {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .child-tab {
+    padding: 10px 20px;
+    background: var(--white);
+    border: 2px solid #E2E8F0;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .child-tab.active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+  .child-tab-delete {
+    background: rgba(231, 76, 60, 0.15);
+    color: var(--red);
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-left: 6px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .child-tab.active .child-tab-delete {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+  }
+  .child-tab-delete:hover {
+    background: var(--red) !important;
+    color: var(--white) !important;
+  }
+
+  .btn-add-child {
+    padding: 10px 24px;
+    background: var(--yellow);
+    border: 2px dashed var(--yellow-dark);
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-add-child:hover {
+    background: var(--yellow-dark);
+    transform: translateY(-2px);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .dashboard-container {
+    padding: 32px;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+  }
+
+  .welcome-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+    border-radius: 20px; padding: 32px; color: var(--white);
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 32px; position: relative; overflow: hidden;
+    box-shadow: 0 12px 32px rgba(26,36,86,0.15);
+  }
+
+  .welcome-text h1 {
+    font-family: 'Baloo 2', cursive; font-size: 32px; font-weight: 800;
+    margin-bottom: 6px; line-height: 1.2;
+  }
+  .welcome-text h1 span { color: var(--yellow); }
+  .welcome-text p { font-size: 15px; color: rgba(255,255,255,0.8); }
+
+  .welcome-illustration { font-size: 70px; line-height: 1; z-index: 2; position: relative; }
+
+  .welcome-banner::after {
+    content: ''; position: absolute; right: -40px; top: -40px;
+    width: 200px; height: 200px; background: var(--yellow);
+    border-radius: 50%; opacity: 0.1;
+  }
+
+  /* ── BUS ANIMATION ── */
+  .road-line {
+    position: absolute; bottom: 20px; left: 0; width: 100%; height: 4px;
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 15px, transparent 15px, transparent 30px);
+    z-index: 4;
+  }
+  .moving-bus {
+    position: absolute; bottom: 18px; left: -10%; font-size: 42px; z-index: 5;
+    animation: driveAcross 10s linear infinite; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+  .moving-bus-inner {
+    display: inline-block; animation: busBounce 0.3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes driveAcross { 
+    0% { left: -10%; } 
+    100% { left: 110%; } 
+  }
+  @keyframes busBounce { 
+    0% { transform: translateY(0); } 
+    100% { transform: translateY(-4px); } 
+  }
+
+  /* ── GRID LAYOUT ── */
+  .dash-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 20px; padding: 28px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .card-title {
+    font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 20px;
+    color: var(--navy); display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── HORIZONTAL TIMELINE ── */
+  .timeline-horizontal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 40px 20px 20px 20px;
+    margin-top: 20px;
+  }
+
+  .timeline-horizontal::before {
+    content: '';
+    position: absolute;
+    left: 8%;
+    top: 50px;
+    width: 84%;
+    height: 4px;
+    background: #E2E8F0;
+    border-radius: 5px;
+    z-index: 1;
+  }
+
+  .timeline-h-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    z-index: 2;
+  }
+
+  .timeline-h-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #E2E8F0;
+    border: 4px solid var(--white);
+    margin-bottom: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+  }
+
+  .timeline-h-item.completed .timeline-h-dot {
+    background: var(--green);
+  }
+
+  .timeline-h-item.active .timeline-h-dot {
+    background: var(--yellow);
+    border-color: var(--white);
+    box-shadow: 0 0 0 5px rgba(255,214,0,0.3);
+    animation: pulse 2s infinite;
+  }
+
+  .timeline-h-content h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .timeline-h-content p {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    max-width: 150px;
+    margin: 0 auto;
+  }
+
+  .timeline-h-bus {
+    position: absolute;
+    top: 16px;
+    left: 8%;
+    font-size: 26px;
+    z-index: 5;
+    animation: slideRightTrack 7s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  }
+
+  @keyframes slideRightTrack {
+    0% { left: 6%; opacity: 0; transform: scale(0.8); }
+    12% { opacity: 1; transform: scale(1); }
+    85% { left: 82%; opacity: 1; transform: scale(1); }
+    100% { left: 90%; opacity: 0; transform: scale(0.8); }
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,214,0,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255,214,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,214,0,0); }
+  }
+
+  /* ── INFO BLOCKS & FORMS ── */
+  .info-group { margin-bottom: 20px; }
+  .info-group:last-child { margin-bottom: 0; }
+  .info-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .info-value { font-size: 16px; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 8px;}
+  
+  .badge {
+    padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 700;
+  }
+  .badge-green { background: rgba(46,204,113,0.15); color: #27AE60; }
+  .badge-orange { background: rgba(255,107,0,0.15); color: var(--orange); }
+  
+  .btn-call {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px; background: var(--yellow); color: var(--navy);
+    border: none; border-radius: 12px; font-weight: 800; font-size: 15px;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; font-family: 'Nunito', sans-serif;
+  }
+  .btn-call:hover { background: var(--yellow-dark); transform: translateY(-2px); }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .form-input {
+    width: 100%; padding: 12px 16px; border: 2px solid #E2E8F0; border-radius: 10px;
+    font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--text);
+    outline: none; transition: border-color 0.2s; background: #FAFBFF;
+  }
+  .form-input:focus { border-color: var(--yellow-dark); background: var(--white); }
+  
+  .route-inputs { display: flex; align-items: center; gap: 10px; }
+  .route-separator { color: var(--muted); font-weight: 800; }
+  
+  .btn-save {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px; background: var(--navy); color: var(--white);
+    border: none; border-radius: 12px; font-weight: 800; font-size: 15px;
+    cursor: pointer; transition: all 0.2s; font-family: 'Nunito', sans-serif; margin-top: 10px;
+  }
+  .btn-save:hover { background: var(--yellow-dark); color: var(--navy); transform: translateY(-2px); }
+
+  .d-none { display: none !important; }
+  
+  .empty-state {
+    text-align: center; padding: 60px 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .empty-icon { font-size: 60px; margin-bottom: 16px; opacity: 0.6; }
+  .empty-text { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .empty-subtext { font-size: 14px; color: var(--muted); max-width: 300px; margin: 0 auto; }
+
+  .toast-msg {
+    position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+    background: var(--navy); color: var(--white); padding: 14px 28px;
+    border-radius: 50px; font-weight: 700; z-index: 2000;
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px;
+  }
+  .toast-msg.show { bottom: 40px; }
+</style>
+</head>
+<body>
+
+<main class="main-content">
+  <header class="top-header">
+    <div class="header-left">
+      <div class="header-logo-icon">🚌</div>
+      <div class="header-logo-text">Snehal <span>Bus</span></div>
+    </div>
+    
+    <div class="user-profile-wrapper" onclick="toggleDropdown(event)">
+      <div class="user-profile">
+        <div class="user-info" style="text-align: right;">
+          <span class="user-name" id="displayUserName">Rajesh Kumar</span>
+          <span class="user-role">Parent</span>
+        </div>
+        <div class="user-avatar" id="displayUserAvatar">R</div>
+      </div>
+      <div class="dropdown-menu" id="profileDropdown">
+        <button class="dropdown-item text-danger" onclick="handleLogout()">
+          <span>🚪</span> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+    <div class="welcome-banner" style="padding-bottom: 60px;">
+      <div class="welcome-text" style="position: relative; z-index: 10;">
+        <h1>Hello, <span id="welcomeName">Parent</span>! 👋</h1>
+        <p id="welcomeSubtext">Please complete your child's registration to start tracking.</p>
+      </div>
+      <div class="welcome-illustration" style="position: relative; z-index: 10;">🏫</div>
+      <div class="road-line"></div>
+      <div class="moving-bus"><div class="moving-bus-inner">🚌</div></div>
+    </div>
+
+    <div class="child-tabs-container">
+      <div id="dynamicChildTabs" style="display: flex; gap: 12px; flex-wrap: wrap;"></div>
+      <button class="btn-add-child" onclick="showFormForNewChild()">➕ Add New Child</button>
+    </div>
+
+    <div class="dash-grid">
+      <div class="card" id="journeyCard">
+        <div id="unregisteredState" class="empty-state">
+          <div class="empty-icon">🚏</div>
+          <div class="empty-text">No Journey Data Yet</div>
+          <div class="empty-subtext">Please fill out and save the registration details on the right to track your child's bus.</div>
+        </div>
+
+        <div id="registeredState" class="d-none">
+          <div class="card-header">
+            <h2 class="card-title">📍 Today's Journey Status</h2>
+            <span class="badge badge-green" id="journeyStatusBadge">Bus is Running</span>
+          </div>
+          
+          <div class="timeline-horizontal">
+            <div class="timeline-h-bus">🚌</div>
+            <div class="timeline-h-item completed">
+              <div class="timeline-h-dot"></div>
+              <div class="timeline-h-content">
+                <h4>Bus Started</h4>
+                <p>Vehicle is on the way from Garage.</p>
+              </div>
+            </div>
+            <div class="timeline-h-item active">
+              <div class="timeline-h-dot"></div>
+              <div class="timeline-h-content">
+                <h4>Picked Up</h4>
+                <p><span id="timelineStartPoint">Ayodhya Nagar</span> (Safe Boarded)</p>
+              </div>
+            </div>
+            <div class="timeline-h-item">
+              <div class="timeline-h-dot"></div>
+              <div class="timeline-h-content">
+                <h4>Reach School</h4>
+                <p id="timelineEndPoint">R. S. Mundle School</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="card" id="formCard">
+          <div class="card-header" style="margin-bottom: 16px;">
+            <h2 class="card-title">📝 Registration Details</h2>
+            <span class="badge" style="background: rgba(255,107,0,0.1); color: var(--orange);">Action Required</span>
+          </div>
+          
+          <form id="registrationForm" onsubmit="handleRegistration(event)">
+            <div class="form-group">
+              <label class="form-label">Child Name</label>
+              <input type="text" class="form-input" id="regChildName" placeholder="Enter child's full name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Parent Name</label>
+              <input type="text" class="form-input" id="regParentNameInput" placeholder="Enter parent's name" required readonly style="background:#f0f2f9; cursor:not-allowed;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" id="regPhone" required readonly style="background:#f0f2f9; cursor:not-allowed;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-input" id="regAddress" placeholder="Enter complete address" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Route (Pickup Point ➔ School)</label>
+              <div class="route-inputs">
+                <input type="text" class="form-input" id="regStartPoint" placeholder="Pickup Stop" required>
+                <span class="route-separator">➔</span>
+                <select class="form-input" id="regEndPoint" required>
+                  <option value="" disabled selected>Select School</option>
+                  <option value="R. S. Mundle School">R. S. Mundle School</option>
+                  <option value="Sanchiti Public School">Sanchiti Public School</option>
+                  <option value="Prerna Convent">Prerna Convent</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-save">💾 Save & Start Tracking</button>
+          </form>
+        </div>
+
+        <div class="card d-none" id="summaryCard">
+          <div class="card-header" style="margin-bottom: 16px;">
+            <h2 class="card-title">✅ Registered Details</h2>
+            <span class="badge badge-green">Saved</span>
+          </div>
+          <div class="info-group"><div class="info-label">Child Name</div><div class="info-value" id="sumChildName">-</div></div>
+          <div class="info-group"><div class="info-label">Parent Name</div><div class="info-value" id="sumParentName">-</div></div>
+          <div class="info-group"><div class="info-label">Email ID</div><div class="info-value" id="sumPhone">-</div></div>
+          <div class="info-group"><div class="info-label">Address</div><div class="info-value" id="sumAddress">-</div></div>
+          <div class="info-group">
+            <div class="info-label">Route</div>
+            <div class="info-value" style="font-size: 14px;">
+              <span style="color: var(--orange);" id="sumStartPoint">-</span> <span style="margin: 0 6px;">➔</span> <span style="color: var(--green);" id="sumEndPoint">-</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card d-none" id="driverCard">
+          <div class="card-header" style="margin-bottom: 16px;">
+            <h2 class="card-title">👨‍✈️ Driver Details</h2>
+            <span class="badge" id="driverStatusBadge">Allocated</span>
+          </div>
+          <div class="info-group"><div class="info-label">Driver Name</div><div class="info-value" id="cardDriverName">-</div></div>
+          <div class="info-group"><div class="info-label">Bus Number</div><div class="info-value" id="cardBusNumber">-</div></div>
+          <div style="margin-top: 24px;" id="callDriverBtnArea"><a href="tel:8329905293" class="btn-call">📞 Call Driver / Owner</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="customToast" class="toast-msg"><span id="toastIcon">ℹ️</span><span id="toastText">Message here</span></div>
+
+<script>
+  let childrenDataArray = [];
+  let currentActiveIndex = -1;
+  let currentUserEmail = ""; 
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = localStorage.getItem('userLoggedIn');
+    const savedName = localStorage.getItem('userName');
+    const savedEmail = localStorage.getItem('userPhone'); 
+
+    if (!isLoggedIn || isLoggedIn !== 'true' || !savedEmail) {
+      alert("Access Denied! Please login first.");
+      window.location.href = "index.html";
+      return;
+    }
+
+    currentUserEmail = savedEmail.trim().toLowerCase(); 
+
+    if (savedName) {
+      document.getElementById('displayUserName').textContent = savedName;
+      document.getElementById('welcomeName').textContent = savedName.split(' ')[0];
+      document.getElementById('displayUserAvatar').textContent = savedName.charAt(0).toUpperCase();
+      document.getElementById('regParentNameInput').value = savedName;
+    }
+    
+    document.getElementById('regPhone').value = currentUserEmail;
+
+    loadChildrenFromDatabase();
+  });
+
+  function loadChildrenFromDatabase() {
+    fetch("http://localhost:5000/get-children?email=" + encodeURIComponent(currentUserEmail))
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data)) {
+        childrenDataArray = data;
+        
+        if (childrenDataArray.length === 0) {
+          showFormForNewChild();
+          renderChildTabs();
+          return;
+        }
+
+        // Keep active index aligned correctly after fresh fetch
+        if (currentActiveIndex === -1 || currentActiveIndex >= childrenDataArray.length) {
+          currentActiveIndex = 0;
+        }
+        
+        renderChildTabs();
+        switchToChild(currentActiveIndex);
+      }
+    })
+    .catch(err => {
+      console.error("Database fetch error:", err);
+      showFormForNewChild();
+    });
+  }
+
+  function renderChildTabs() {
+    const tabsContainer = document.getElementById('dynamicChildTabs');
+    tabsContainer.innerHTML = ''; 
+    
+    childrenDataArray.forEach((child, index) => {
+      const tabButton = document.createElement('button');
+      tabButton.className = `child-tab ${index === currentActiveIndex ? 'active' : ''}`;
+      tabButton.innerHTML = `👦 ${child.childName}`;
+      
+      tabButton.onclick = (event) => {
+        if (event.target.classList.contains('child-tab-delete')) return;
+        switchToChild(index);
+      };
+
+      const removeButton = document.createElement('span');
+      removeButton.className = 'child-tab-delete';
+      removeButton.innerHTML = '×';
+      removeButton.title = 'Delete Profile Record';
+      removeButton.onclick = (event) => {
+        event.stopPropagation(); 
+        handleDeleteChild(index, child._id);
+      };
+
+      tabButton.appendChild(removeButton);
+      tabsContainer.appendChild(tabButton);
+    });
+  }
+
+  function handleDeleteChild(index, childId) {
+    if (confirm("Are you sure you want to delete this profile?")) {
+      if (childId) {
+        fetch("http://localhost:5000/delete-child", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: childId })
+        })
+        .then(() => {
+          currentActiveIndex = -1;
+          loadChildrenFromDatabase();
+        })
+        .catch(err => console.error(err));
+      }
+    }
+  }
+
+  function switchToChild(index) {
+    currentActiveIndex = index;
+    
+    const tabs = document.querySelectorAll('.child-tab');
+    tabs.forEach((tab, idx) => {
+      if (idx === index) tab.classList.add('active');
+      else tab.classList.remove('active');
+    });
+
+    const currentChild = childrenDataArray[index];
+
+    document.getElementById('sumChildName').textContent = currentChild.childName;
+    document.getElementById('sumParentName').textContent = currentChild.parentName;
+    document.getElementById('sumPhone').textContent = currentChild.email; 
+    document.getElementById('sumAddress').textContent = currentChild.address;
+    document.getElementById('sumStartPoint').textContent = currentChild.startPoint;
+    document.getElementById('sumEndPoint').textContent = currentChild.endPoint;
+    
+    document.getElementById('timelineStartPoint').textContent = currentChild.startPoint;
+    document.getElementById('timelineEndPoint').textContent = currentChild.endPoint;
+
+    const dName = currentChild.driverName;
+    const bNum = currentChild.busNumber;
+
+    if (!dName || dName === "" || dName === "Pending Allocation") {
+      document.getElementById('cardDriverName').textContent = "Pending Allocation";
+      document.getElementById('cardBusNumber').textContent = "Not Assigned Yet";
+      document.getElementById('driverStatusBadge').className = "badge badge-orange";
+      document.getElementById('driverStatusBadge').textContent = "Awaiting Admin";
+      document.getElementById('callDriverBtnArea').style.display = "none";
+      
+      document.getElementById('journeyStatusBadge').className = "badge badge-orange";
+      document.getElementById('journeyStatusBadge').textContent = "Awaiting Activation";
+    } else {
+      document.getElementById('cardDriverName').textContent = dName;
+      document.getElementById('cardBusNumber').textContent = bNum;
+      document.getElementById('driverStatusBadge').className = "badge badge-green";
+      document.getElementById('driverStatusBadge').textContent = "Allocated";
+      document.getElementById('callDriverBtnArea').style.display = "block";
+      
+      document.getElementById('journeyStatusBadge').className = "badge badge-green";
+      document.getElementById('journeyStatusBadge').textContent = "Bus is Running";
+    }
+
+    document.getElementById('formCard').classList.add('d-none'); 
+    document.getElementById('unregisteredState').classList.add('d-none'); 
+    
+    document.getElementById('summaryCard').classList.remove('d-none'); 
+    document.getElementById('registeredState').classList.remove('d-none'); 
+    document.getElementById('driverCard').classList.remove('d-none'); 
+
+    document.getElementById('welcomeSubtext').textContent = `Now monitoring live horizontal status rail for ${currentChild.childName}.`;
+  }
+
+  function showFormForNewChild() {
+    currentActiveIndex = -1; 
+    
+    const tabs = document.querySelectorAll('.child-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    document.getElementById('regChildName').value = '';
+    document.getElementById('regAddress').value = '';
+    document.getElementById('regStartPoint').value = '';
+    document.getElementById('regEndPoint').selectedIndex = 0;
+
+    document.getElementById('formCard').classList.remove('d-none');
+    document.getElementById('unregisteredState').classList.remove('d-none');
+
+    document.getElementById('summaryCard').classList.add('d-none');
+    document.getElementById('registeredState').classList.add('d-none');
+    document.getElementById('driverCard').classList.add('d-none');
+
+    document.getElementById('welcomeSubtext').textContent = "Fill out details below to add another student profile tracking asset.";
+  }
+
+  function handleRegistration(event) {
+    event.preventDefault(); 
+    
+    const childName = document.getElementById('regChildName').value.trim();
+    const parentName = document.getElementById('regParentNameInput').value.trim();
+    const emailVal = document.getElementById('regPhone').value.trim(); 
+    const address = document.getElementById('regAddress').value.trim();
+    const startPoint = document.getElementById('regStartPoint').value.trim();
+    const endPoint = document.getElementById('regEndPoint').value;
+
+    fetch("http://localhost:5000/register-child", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ childName, parentName, email: emailVal, address, startPoint, endPoint })
+    })
+    .then(res => res.json())
+    .then(data => {
+      showToast("Registration submitted perfectly!");
+      // Set index to the newly added child (which will be at the end of the array)
+      currentActiveIndex = childrenDataArray.length;
+      loadChildrenFromDatabase();
+    })
+    .catch(err => {
+      console.error(err);
+      showToast("Error processing data layout pipeline registry.", false);
+    });
+  } 
+
+  function toggleDropdown(event) {
+    event.stopPropagation(); 
+    const dropdown = document.getElementById('profileDropdown');
+    dropdown.classList.toggle('active');
+  }
+
+  window.onclick = function(event) {
+    if (!event.target.closest('.user-profile-wrapper')) {
+      const dropdown = document.getElementById('profileDropdown');
+      if (dropdown && dropdown.classList.contains('active')) {
+        dropdown.classList.remove('active');
+      }
+    }
+  }
+
+  function showToast(message, isSuccess = true) {
+    const toast = document.getElementById('customToast');
+    const toastText = document.getElementById('toastText');
+    toastText.textContent = message;
+    toast.style.background = isSuccess ? "var(--navy)" : "var(--red)";
+    toast.classList.add('show');
+    setTimeout(() => { toast.classList.remove('show'); }, 3000);
+  }
+
+  function handleLogout() {
+    showToast("Disconnecting session engine cleanly...");
+    localStorage.clear();
+    setTimeout(() => { window.location.href = "index.html"; }, 1500);
+  }
+</script>
+</body>
+</html>

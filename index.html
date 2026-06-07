@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snehal School Bus Service – Nagpur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a href="https://wa.me/918329905293" class="wa-float" title="WhatsApp Us">💬</a>
+
+    <div id="customToast" class="toast-msg">
+        <span id="toastIcon">✅</span>
+        <span id="toastText">Success message here</span>
+    </div>
+
+    <header>
+        <div class="header-inner">
+            <a class="logo" href="#">
+                <div class="logo-icon">🚌</div>
+                <div class="logo-text">Snehal <span>Bus</span><br>Service</div>
+            </a>
+            
+            <div class="nav-container">
+                <nav>
+                    <a href="#schools">Schools</a>
+                    <a href="#routes">Routes</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#features">Why Us</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-outline btn-sm" onclick="openAuthModal('login')">Login</button>
+                    <button class="btn btn-primary btn-sm" onclick="openAuthModal('signup')">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="bus-container">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <svg class="school-bus-svg" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#E1F5FE" />
+                        <stop offset="100%" stop-color="#81D4FA" />
+                    </linearGradient>
+                </defs>
+                
+                <ellipse cx="300" cy="245" rx="220" ry="12" fill="rgba(26, 36, 86, 0.35)" class="bus-shadow" />
+                
+                <g class="bus-body-anim">
+                    <rect x="150" y="55" width="6" height="20" fill="#111" />
+                    <line x1="145" y1="55" x2="161" y2="55" stroke="#111" stroke-width="4" />
+                    <rect x="330" y="55" width="6" height="20" fill="#111" />
+                    <line x1="325" y1="55" x2="341" y2="55" stroke="#111" stroke-width="4" />
+                    <rect x="510" y="55" width="6" height="20" fill="#111" />
+                    <line x1="505" y1="55" x2="521" y2="55" stroke="#111" stroke-width="4" />
+                    
+                    <path d="M 60,75 L 470,75 C 490,75 510,100 520,130 L 550,130 C 565,130 565,170 565,180 L 565,210 C 565,220 550,225 540,225 L 60,225 C 50,225 50,220 50,210 L 50,85 C 50,75 55,75 60,75 Z" fill="#FFD600" stroke="#E2AB00" stroke-width="4" />
+                    
+                    <rect x="50" y="195" width="455" height="10" fill="#1A2456" />
+                    <rect x="50" y="165" width="510" height="15" fill="#1A2456" />
+                    <rect x="50" y="135" width="415" height="8" fill="#1A2456" />
+                    
+                    <text x="290" y="178" fill="#FFD600" font-family="'Baloo 2', cursive" font-weight="900" font-size="16" letter-spacing="4" text-anchor="middle">SCHOOL BUS</text>
+                    
+                    <path d="M 470,90 L 515,90 C 525,105 530,120 535,135 L 470,135 Z" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" />
+                    <line x1="495" y1="95" x2="515" y2="130" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    
+                    <rect x="410" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="425" y1="95" x2="445" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="350" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="365" y1="95" x2="385" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="290" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="305" y1="95" x2="325" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="230" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="245" y1="95" x2="265" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="170" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="185" y1="95" x2="205" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="110" y="90" width="50" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="125" y1="95" x2="145" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+                    <rect x="60" y="90" width="40" height="45" fill="url(#windowGrad)" stroke="#1A2456" stroke-width="3" rx="4" />
+                    <line x1="70" y1="95" x2="85" y2="125" stroke="#fff" stroke-width="3" opacity="0.6" stroke-linecap="round" />
+
+                    <path d="M 535,115 L 550,115 L 550,135 L 535,125 Z" fill="#222" />
+                    <rect x="546" y="110" width="6" height="30" rx="2" fill="#111" />
+                    
+                    <g transform="translate(385, 144) scale(0.9)">
+                        <polygon points="15,0 35,0 50,15 50,35 35,50 15,50 0,35 0,15" fill="#FFF" />
+                        <polygon points="16,2 34,2 48,16 48,34 34,48 16,48 2,34 2,16" fill="#E74C3C" />
+                        <circle cx="25" cy="25" r="16" fill="none" stroke="#FFF" stroke-width="2" />
+                        <rect x="13" y="23" width="24" height="4" fill="#FFF" />
+                    </g>
+
+                    <rect x="555" y="190" width="12" height="18" rx="4" fill="#FFF" stroke="#E2AB00" stroke-width="2" />
+                    <rect x="48" y="195" width="4" height="15" fill="#E74C3C" />
+
+                    <path d="M 540,215 L 575,215 A 8,8 0 0,1 583,223 L 583,230 A 3,3 0 0,1 580,233 L 540,233 Z" fill="#222" />
+                    <path d="M 52,215 L 40,215 A 5,5 0 0,0 35,220 L 35,230 L 52,230 Z" fill="#222" />
+                </g>
+                
+                <g class="wheel rear-wheel">
+                    <circle cx="155" cy="235" r="42" fill="#222" stroke="#111" stroke-width="2" />
+                    <circle cx="155" cy="235" r="24" fill="#666" />
+                    <circle cx="155" cy="235" r="14" fill="#FFF" />
+                    <circle cx="155" cy="235" r="5" fill="#222" />
+                    <line x1="155" y1="193" x2="155" y2="211" stroke="#111" stroke-width="4" />
+                    <line x1="155" y1="259" x2="155" y2="277" stroke="#111" stroke-width="4" />
+                    <line x1="113" y1="235" x2="131" y2="235" stroke="#111" stroke-width="4" />
+                    <line x1="179" y1="235" x2="197" y2="235" stroke="#111" stroke-width="4" />
+                </g>
+                
+                <g class="wheel front-wheel">
+                    <circle cx="465" cy="235" r="42" fill="#222" stroke="#111" stroke-width="2" />
+                    <circle cx="465" cy="235" r="24" fill="#666" />
+                    <circle cx="465" cy="235" r="14" fill="#FFF" />
+                    <circle cx="465" cy="235" r="5" fill="#222" />
+                    <line x1="465" y1="193" x2="465" y2="211" stroke="#111" stroke-width="4" />
+                    <line x1="465" y1="259" x2="465" y2="277" stroke="#111" stroke-width="4" />
+                    <line x1="423" y1="235" x2="441" y2="235" stroke="#111" stroke-width="4" />
+                    <line x1="489" y1="235" x2="507" y2="235" stroke="#111" stroke-width="4" />
+                </g>
+            </svg>
+            
+            <div class="road-container">
+                <div class="road-dashed-line"></div>
+            </div>
+        </div>
+
+        <div class="hero-badge">✦ Serving Nagpur Since Day One</div>
+        <h1>Safe & Reliable<br><span>School Bus</span> Service</h1>
+        <p>Trusted by families across Nagpur for safe, punctual, and comfortable transport for school children.</p>
+        <div class="hero-cta">
+            <a href="tel:8329905293" class="btn btn-primary">📞 Call Now</a>
+            <a href="#routes" class="btn btn-outline">View Routes</a>
+        </div>
+    </section>
+
+    <div class="stats-strip">
+        <div class="stats-inner">
+            <div class="stat">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Schools Served</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">8</div>
+                <div class="stat-label">Routes Covered</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Safe Journey</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section" id="schools">
+        <div class="container">
+            <div class="section-tag">🏫 Partner Schools</div>
+            <h2 class="section-heading">Schools We Serve</h2>
+            <p class="section-sub">Snehal Bus Service is proud to provide daily transport for students of these reputed schools in Nagpur.</p>
+            <div class="schools-grid">
+                <div class="school-card">
+                    <div class="school-icon">📚</div>
+                    <div>
+                        <div class="school-name">R. S. Mundle School</div>
+                        <div class="school-city">📍 Nagpur, Maharashtra</div>
+                    </div>
+                </div>
+                <div class="school-card">
+                    <div class="school-icon">🎓</div>
+                    <div>
+                        <div class="school-name">Sanchiti Public School</div>
+                        <div class="school-city">📍 Nagpur, Maharashtra</div>
+                    </div>
+                </div>
+                <div class="school-card">
+                    <div class="school-icon">⭐</div>
+                    <div>
+                        <div class="school-name">Prerna Convent</div>
+                        <div class="school-city">📍 Nagpur, Maharashtra</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section routes-bg" id="routes">
+        <div class="container">
+            <div class="section-tag">🗺️ Coverage Areas</div>
+            <h2 class="section-heading">Our Bus Routes</h2>
+            <p class="section-sub">We cover the following areas across Nagpur for daily school pickup and drop.</p>
+
+            <div class="route-timeline-wrapper">
+                <div class="animated-route-bus">🚌</div>
+                <div class="route-line">
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Malgi Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Ashirwad Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Ayodhya Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Vitthal Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Uday Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Balaji Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Pragathi Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot"></div>
+                        <div class="stop-label">Narendra Nagar</div>
+                    </div>
+                    <div class="stop-line"></div>
+                    <div class="stop">
+                        <div class="stop-dot" style="background:#FFD600;box-shadow:0 0 0 4px rgba(255,214,0,0.4);"></div>
+                        <div class="stop-label" style="color:#FFD600;font-weight:800;">🏫 School</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <div class="route-grid">
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Malgi Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Ashirwad Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Ayodhya Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Vitthal Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Uday Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Balaji Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Pragathi Nagar</div></div>
+                    <div class="route-card"><div class="route-dot"></div><div class="route-name">Narendra Nagar</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-tag">📸 Snehal Fleet Gallery</div>
+            <h2 class="section-heading">Our premium bus service experience</h2>
+            <p class="section-sub">See our clean vehicles, comfortable layout, and safety features in action with our happy students.</p>
+
+            <div class="gallery-showcase">
+                <div class="slide-badge" id="slideBadge">1 / 6</div>
+
+                <button class="nav-arrow arrow-left" onclick="slidePrev()" aria-label="Previous Slide">‹</button>
+                <button class="nav-arrow arrow-right" onclick="slideNext()" aria-label="Next Slide">›</button>
+
+                <div class="slider-viewport" id="sliderViewport">
+                    <div class="slides-track" id="slidesTrack">
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.37 PM.jpeg" alt="Snehal School Bus" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=Snehal+Red+Uniform+Students'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Our Fleet & Students</span>
+                                <h3 class="slide-title">Daily School Uniformed Commuters</h3>
+                                <p class="slide-desc">Posing happily next to our signature Snehal transport van.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.37 PM (1).jpeg" alt="Traditional Dress Event" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=Festive+Dressed+Students'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Special Activities</span>
+                                <h3 class="slide-title">Traditional Celebration Days</h3>
+                                <p class="slide-desc">Transporting Nagpur's children in comfort and safety.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.38 PM (1).jpg" alt="R.S. Mundle School Campus" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=RS+Mundle+School+Lining+Up'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Campus Routine</span>
+                                <h3 class="slide-title">Lining up at R.S. Mundle Campus</h3>
+                                <p class="slide-desc">Orderly and disciplined transport assistance managed safely.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.38 PM (2).jpeg" alt="Large Yellow School Bus" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=Asawati+Convent+Yellow+Bus'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Premium Heavy Fleet</span>
+                                <h3 class="slide-title">Certified Yellow Transport Bus</h3>
+                                <p class="slide-desc">Our RTO-certified heavy yellow bus catering to premium paths.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.38 PM (3).jpeg" alt="Blue Uniformed Schoolchildren" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=Blue+Uniform+Students'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Daily Transit Routine</span>
+                                <h3 class="slide-title">Primary School Blue Uniform Transit</h3>
+                                <p class="slide-desc">Ensuring spacious legroom and complete ease for junior levels.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="WhatsApp Image 2026-06-01 at 8.01.38 PM.jpeg" alt="Snehal Bus Front View" onerror="this.src='https://placehold.co/900x520/1A2456/FFD600?text=Snehal+Yellow+Transport+Van'">
+                            <div class="slide-overlay">
+                                <span class="slide-category">Our Fleet Details</span>
+                                <h3 class="slide-title">Reliable Nagpur Transit Service</h3>
+                                <p class="slide-desc">Providing highly organized timings, trusted daily by parents.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="thumbs-container" id="thumbsContainer"></div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-tag">✨ Why Choose Us</div>
+            <h2 class="section-heading">Your Child's Safety is Our Priority</h2>
+            <p class="section-sub">We go above and beyond to make every journey safe, comfortable, and stress-free.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-emoji">🛡️</span>
+                    <div class="feature-title">Child Safety First</div>
+                    <div class="feature-desc">Trained drivers and strict safety protocols ensure every child reaches safely.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">⏰</span>
+                    <div class="feature-title">Always On Time</div>
+                    <div class="feature-desc">Punctual pickups and drop-offs so parents can plan without worry.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">📞</span>
+                    <div class="feature-title">Direct Owner Contact</div>
+                    <div class="feature-desc">Reach Mr. Dipak Shinde directly anytime — no middlemen, no delays.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">🗺️</span>
+                    <div class="feature-title">Wide Area Coverage</div>
+                    <div class="feature-desc">8 major localities covered across Nagpur for maximum convenience.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">🚌</span>
+                    <div class="feature-title">Well-Maintained Fleet</div>
+                    <div class="feature-desc">Clean, comfortable, and regularly serviced vehicles.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-emoji">💛</span>
+                    <div class="feature-title">Trusted by Parents</div>
+                    <div class="feature-desc">Years of reliable service have made us the most trusted provider.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact" style="background: var(--sky);">
+        <div class="container">
+            <div class="section-tag">📬 Get In Touch</div>
+            <h2 class="section-heading">Contact Us</h2>
+            <p class="section-sub">Have questions about routes, timings, or enrollment? Reach out to us directly.</p>
+
+            <div class="contact-wrapper">
+                <div class="contact-card accent">
+                    <div class="owner-name">Dipak S. Shinde</div>
+                    <div class="owner-role">Owner · Snehal Bus Service</div>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-yellow">📞</div>
+                        <div>
+                            <div class="contact-label">Primary Number</div>
+                            <div class="contact-value"><a href="tel:8329905293">+91 83299 05293</a></div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-green">📱</div>
+                        <div>
+                            <div class="contact-label">Alternate Number</div>
+                            <div class="contact-value"><a href="tel:7030429185">+91 70304 29185</a></div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-blue">📍</div>
+                        <div>
+                            <div class="contact-label">Address</div>
+                            <div class="contact-value">Plot No. 25, Behind Sainath Temple,<br>Ayodhya Nagar, Nagpur</div>
+                        </div>
+                    </div>
+                    <a href="tel:8329905293" class="call-btn">📞 Call Now</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="owner-name" style="font-size:20px;">Quick Info</div>
+                    <div class="owner-role">Service Details</div>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-yellow">🕐</div>
+                        <div>
+                            <div class="contact-label">Service Hours</div>
+                            <div class="contact-value">Mon – Sat, 7:00 AM – 6:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-green">🏫</div>
+                        <div>
+                            <div class="contact-label">Schools Covered</div>
+                            <div class="contact-value">R.S. Mundle · Sanchiti Public · Prerna Convent</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon ci-blue">🗺️</div>
+                        <div>
+                            <div class="contact-label">Area</div>
+                            <div class="contact-value">Nagpur City & Surrounding Localities</div>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/918329905293?text=Hello%2C%20I%20am%20interested%20in%20Snehal%20Bus%20Service" class="call-btn" style="background:#25D366;">
+                        💬 WhatsApp Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>🚌 <strong>Snehal School Bus Service</strong> · Nagpur, Maharashtra</p>
+        <p style="margin-top:6px;">© 2025 All Rights Reserved · Owner: Dipak S. Shinde · <a href="tel:8329905293" style="color:var(--yellow);text-decoration:none;">+91 83299 05293</a></p>
+    </footer>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-card">
+            <button class="close-modal" onclick="closeAuthModal()">×</button>
+            
+            <div class="auth-header">
+                <div class="logo-icon" style="margin: 0 auto 12px; width:50px; height:50px;">🚌</div>
+                <h3>Welcome Back</h3>
+                <p>Manage your child's bus transport easily.</p>
+            </div>
+
+            <div class="auth-tabs" id="authTabsContainer">
+                <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- LOGIN FORM (UPDATED FOR ONLY EMAIL ADDRESS) -->
+            <form class="auth-form active" id="form-login" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your registered email ID" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <div style="text-align: right; margin-top: -10px;">
+                    <a href="#" onclick="switchTab('forgot'); return false;" style="font-size:12px; color:var(--muted); font-weight:700;">Forgot Password?</a>
+                </div>
+                <button type="submit" class="auth-submit-btn">Login Securely</button>
+                <div class="auth-footer-text">
+                    Don't have an account? <a href="#" onclick="switchTab('signup'); return false;">Sign Up Now</a>
+                </div>
+            </form>
+
+            <!-- SIGN UP FORM (UPDATED: MOBILE REMOVED, EMAIL ADDED) -->
+            <form class="auth-form" id="form-signup" onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <label>Parent / Guardian Name</label>
+                    <input type="text" id="signup-name" placeholder="Enter full name" required>
+                </div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signup-email" placeholder="Enter your email ID" required>
+                </div>
+                <div class="input-group">
+                    <label>Create Password</label>
+                    <input type="password" id="signup-password" placeholder="Min 6 characters" minlength="6" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Create Account</button>
+                <div class="auth-footer-text">
+                    Already have an account? <a href="#" onclick="switchTab('login'); return false;">Login Here</a>
+                </div>
+            </form>
+
+            <!-- FORGOT PASSWORD FORM (UPDATED FOR EMAIL ONLY) -->
+            <form class="auth-form" id="form-forgot" onsubmit="handleForgotPassword(event)">
+                <!-- Step 1: Email Input -->
+                <div id="forgot-step-mobile">
+                    <div class="input-group">
+                        <label>Registered Email Address</label>
+                        <input type="email" id="forgot-identity" placeholder="Enter registered email ID" required>
+                    </div>
+                    <button type="submit" class="auth-submit-btn">Send Verification OTP</button>
+                </div>
+
+                <!-- Step 2: OTP Entry Box (Initially Hidden) -->
+                <div id="forgot-step-otp" style="display:none; margin-top: 10px;">
+                    <div class="input-group">
+                        <label>Enter 4-Digit OTP</label>
+                        <input type="text" id="forgot-otp-input" placeholder="Enter 4-digit OTP code" maxlength="4" pattern="[0-9]{4}">
+                    </div>
+                    <div class="input-group">
+                        <label>Create New Password</label>
+                        <input type="password" id="forgot-new-password" placeholder="Min 6 characters" minlength="6">
+                    </div>
+                    <button type="button" class="auth-submit-btn" onclick="handleVerifyOTP(event)" style="background: var(--green);">Verify OTP & Reset Password</button>
+                </div>
+
+                <div class="auth-footer-text" style="margin-top: 15px;">
+                    Remembered your password? <a href="#" onclick="switchTab('login'); return false;">Login Here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
