@@ -85,7 +85,7 @@ function handleLogin(e) {
     return;
   }
 
-  fetch("http://localhost:5000/login", {
+  fetch("https://snehalbusservice-v0ok.onrender.com/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: emailVal, password: password })
@@ -134,7 +134,7 @@ function handleSignup(e) {
     return;
   }
 
-  fetch("http://localhost:5000/save", {
+  fetch("https://snehalbusservice-v0ok.onrender.com/save", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email: emailVal, password })
@@ -182,7 +182,7 @@ function handleForgotPassword(e) {
     return;
   }
 
-  fetch("http://localhost:5000/forgot-password", {
+  fetch("https://snehalbusservice-v0ok.onrender.com/forgot-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ identity: emailVal })
@@ -216,7 +216,7 @@ function handleVerifyOTP(e) {
     return;
   }
 
-  fetch("http://localhost:5000/verify-otp", {
+  fetch("https://snehalbusservice-v0ok.onrender.com/verify-otp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: emailVal, otp: otpEntered, newPassword: newPassword })
