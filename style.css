@@ -695,4 +695,18 @@ footer strong { color: var(--yellow); }
 }
 
 @media (max-width: 680px) { .contact-wrapper { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .hero { padding: 48px 20px 60px; } .stat { min-width: 120px; } .auth-buttons .btn-outline { display: none; } }
+@media (max-width: 600px) { 
+  .hero { padding: 48px 20px 60px; } 
+  .stat { min-width: 120px; } 
+  
+  /* Login button ko chhipane ke bajay dono buttons ko mobile par aamne-saamne dikhayenge */
+  .auth-buttons {
+    display: flex !important;
+    gap: 8px !important;
+  }
+  .auth-buttons .btn-outline { 
+    display: inline-flex !important; 
+    padding: 6px 12px !important;
+    font-size: 13px !important;
+  }
+}

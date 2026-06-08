@@ -425,6 +425,43 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 10px;
   }
   .toast-msg.show { bottom: 40px; }
+
+  /* ── SWAMI VIVEKANAND / MCA STANDARD MOBILE RESPONSIVE GRID ── */
+  @media (max-width: 992px) {
+    /* Side-by-side layout ko cancel karke cards ko upar-niche set karega */
+    .dash-grid { 
+      grid-template-columns: 1fr !important; 
+      gap: 20px !important;
+    }
+
+    /* Right column ke cards ko full space dega */
+    .dash-grid > div[style*="display: flex"] {
+      width: 100% !important;
+      gap: 20px !important;
+    }
+
+    /* Welcome banner text auto center styling */
+    .welcome-banner {
+      flex-direction: column !important;
+      text-align: center !important;
+      gap: 16px !important;
+      padding: 24px !important;
+    }
+
+    .welcome-text h1 {
+      font-size: 24px !important;
+      word-break: break-all !important; /* Badi Email/Name hone par screen se bahar nahi bhagega */
+    }
+
+    /* Multi-child tabs sizing on mobile */
+    .child-tabs-container {
+      gap: 8px !important;
+    }
+    .child-tab {
+      padding: 8px 16px !important;
+      font-size: 13px !important;
+    }
+  }
 </style>
 </head>
 <body>
