@@ -5,22 +5,26 @@ const nodemailer = require('nodemailer');
 
 const app = express();
 
-// Middleware setup
+// ── 1. MIDDLEWARE PRODUCTION SETUP ──
 app.use(cors());
 app.use(express.json()); // JSON packet read karne ke liye
 
-// ── MONGODB CONNECTION & AUTOMATIC INDEX FIX ──
+// Base Health Check Route (Isse pata chalega backend live jaag raha hai)
+app.get('/', (req, res) => {
+    res.send("Snehal Bus Service Backend Engine is Live and Running!");
+});
+
+// ── 2. MONGODB ATLAS CLOUD CONNECTION ──
 mongoose.connect(process.env.MONGO_URI)
 .then(async () => {
-    console.log('MongoDB connected successfully via Node.js!');
+    console.log('MongoDB connected successfully via Node.js Atlas Cloud!');
     
-    // ── CODE SE AUTOMATIC PURANA CONSTRAINT INDEX DROP KARNA ──
+    // Automatic purana constraint index helper drop loop
     try {
         const adminDb = mongoose.connection.db;
         const collections = await adminDb.listCollections({ name: 'users' }).toArray();
         
         if (collections.length > 0) {
-            // users collection ke saare indexes check karo
             const indexes = await adminDb.collection('users').indexes();
             const hasPhoneIndex = indexes.some(idx => idx.name === 'phone_1');
             
@@ -36,9 +40,9 @@ mongoose.connect(process.env.MONGO_URI)
         console.log('[INDEX FIX NOTE] Index reset loop checked smoothly:', indexErr.message);
     }
 })
-.catch(err => console.error('Database connection error:', err));
+.catch(err => console.error('Database cloud connection error:', err));
 
-// ── USER SCHEMA (UPDATED FOR PURE EMAIL SYSTEM) ──
+// ── 3. USER SCHEMA ──
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true }, 
@@ -49,7 +53,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// ── 1. SIGN UP ROUTE ──
+// ── 4. SIGN UP ROUTE ──
 app.post('/save', async (req, res) => {
     const { name, email, password } = req.body; 
 
@@ -80,7 +84,7 @@ app.post('/save', async (req, res) => {
     }
 });
 
-// ── 2. LOGIN ROUTE ──
+// ── 5. LOGIN ROUTE ──
 app.post('/login', async (req, res) => {
     const { email, password } = req.body; 
 
@@ -111,7 +115,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// ── 3. NODEMAILER CONFIGURATION ──
+// ── 6. NODEMAILER CONFIGURATION ──
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -120,7 +124,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// ── 4. FORGOT PASSWORD ROUTE ──
+// ── 7. FORGOT PASSWORD ROUTE ──
 app.post('/forgot-password', async (req, res) => {
     const { identity } = req.body; 
 
@@ -169,7 +173,7 @@ app.post('/forgot-password', async (req, res) => {
     }
 });
 
-// ── 5. VERIFY OTP ROUTE ──
+// ── 8. VERIFY OTP ROUTE ──
 app.post('/verify-otp', async (req, res) => {
     const { email, otp, newPassword } = req.body;
 
@@ -201,11 +205,11 @@ app.post('/verify-otp', async (req, res) => {
     }
 });
 
-// ── 6. CHILD REGISTRATION SCHEMA ──
+// ── 9. CHILD REGISTRATION SCHEMA ──
 const childRegistrationSchema = new mongoose.Schema({
     childName: { type: String, required: true },
     parentName: { type: String, required: true },
-    email: { type: String, required: true }, // Synchronized property key name
+    email: { type: String, required: true }, 
     address: { type: String, required: true }, 
     startPoint: { type: String, required: true },
     endPoint: { type: String, required: true },
@@ -216,9 +220,8 @@ const childRegistrationSchema = new mongoose.Schema({
 
 const Registration = mongoose.model('Registration', childRegistrationSchema);
 
-// ── 7. REGISTER CHILD ROUTE (FIXED SYNC KEY) ──
+// ── 10. REGISTER CHILD ROUTE ──
 app.post('/register-child', async (req, res) => {
-    // FIXED: Ab frontend se bheja gaya 'email' parameter bina kisi confusion ke seedhe 'email' key par map hoga
     const { childName, parentName, email, address, startPoint, endPoint } = req.body; 
 
     try {
@@ -232,7 +235,7 @@ app.post('/register-child', async (req, res) => {
         const newRegistration = new Registration({ 
             childName, 
             parentName, 
-            email: cleanEmail, // Safely mapped to schema field entry
+            email: cleanEmail, 
             address,
             startPoint: cleanStartPoint, 
             endPoint,
@@ -243,7 +246,7 @@ app.post('/register-child', async (req, res) => {
         await newRegistration.save();
         console.log(`[SUCCESS] New child student profile saved into MongoDB for: ${cleanEmail}`);
 
-        // Professional HTML Email Notification Structure
+        // Professional HTML Email Notification
         const mailOptions = {
             from: 'sarthpatil020205@gmail.com', 
             to: 'sarthpatil020205@gmail.com', 
@@ -279,7 +282,7 @@ app.post('/register-child', async (req, res) => {
     }
 });
 
-// ── 8. DYNAMIC DB FETCH ROUTE: GET CHILDREN DIRECTLY FROM MONGO ──
+// ── 11. DYNAMIC DB FETCH ROUTE ──
 app.get('/get-children', async (req, res) => {
     const parentEmail = req.query.email;
     try {
@@ -291,7 +294,7 @@ app.get('/get-children', async (req, res) => {
     }
 });
 
-// ── 9. DYNAMIC DB REMOVE ROUTE: REMOVE RECORDS DIRECTLY FROM MONGO ──
+// ── 12. DYNAMIC DB REMOVE ROUTE ──
 app.post('/delete-child', async (req, res) => {
     const { id } = req.body;
     try {
@@ -302,6 +305,8 @@ app.post('/delete-child', async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log('Node.js Server is running perfectly on http://localhost:5000');
+// ── 13. FIXED: DYNAMIC PORT BOUNDING FOR DEPLOYMENT (RENDER COMPATIBLE) ──
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Node.js Production Server is running perfectly on port ${PORT}`);
 });
