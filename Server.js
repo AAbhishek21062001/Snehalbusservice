@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json()); // JSON packet read karne ke liye
 
 // ── MONGODB CONNECTION & AUTOMATIC INDEX FIX ──
-mongoose.connect('mongodb://localhost:27017/snehal_bus')
+mongoose.connect(process.env.MONGO_URI)
 .then(async () => {
     console.log('MongoDB connected successfully via Node.js!');
     
