@@ -105,20 +105,11 @@ function handleLogin(e) {
       showToast(data.message || "Invalid credentials!", false); 
     }
   })
-  .catch(err => {
-    console.error("Login Fetch Error, checking manual fallback options:", err);
-    if (password === "123456") {
-      showToast("Offline Simulation Mode Active!", true);
-      let nameField = emailVal.split('@')[0];
-      localStorage.setItem('userLoggedIn', 'true');
-      localStorage.setItem('userName', nameField.charAt(0).toUpperCase() + nameField.slice(1));
-      localStorage.setItem('userPhone', emailVal);
-      setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
-    } else {
-      showToast("Invalid credentials! To test locally without server, use password '123456'", false);
-    }
-  });
-}
+
+.catch(err => {
+    console.error("Login Fetch Error:", err);
+    showToast("Server connection failed. Please try again later.", false);
+});
 
 // ── FIXED: PURE EMAIL SIGN-UP SUBMISSION ──
 function handleSignup(e) {
