@@ -120,9 +120,9 @@ app.post('/login', async (req, res) => {
 // ── 6. NODEMAILER CONFIGURATION ──
 const transporter = nodemailer.createTransport({
     service: 'gmail',
-    auth: {
-        user: 'sarthpatil020205@gmail.com', 
-        pass: 'wbwysprxqnwkvmvt'       
+    auth: { 
+        user: 'aabhishek21062001@gmail.com', 
+        pass: 'ejnuwytqyhtfndxm'  // अपना नया पासवर्ड बिना स्पेस के यहाँ चिपका दें
     }
 });
 
@@ -147,7 +147,7 @@ app.post('/forgot-password', async (req, res) => {
         await user.save();
 
         const mailOptions = {
-            from: 'sarthpatil020205@gmail.com',
+            from: 'aabhishek21062001@gmail.com',
             to: cleanEmail,
             subject: '🔒 Snehal Bus Service - Password Reset OTP',
             html: `
