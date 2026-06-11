@@ -98,18 +98,18 @@ function handleLogin(e) {
       
       localStorage.setItem('userLoggedIn', 'true');
       localStorage.setItem('userName', data.name);
-      localStorage.setItem('userPhone', data.email); // userPhone slot matches local dashboard logic
+      localStorage.setItem('userPhone', data.email); 
       
       setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
     } else {
       showToast(data.message || "Invalid credentials!", false); 
     }
   })
-
-.catch(err => {
+  .catch(err => {
     console.error("Login Fetch Error:", err);
     showToast("Server connection failed. Please try again later.", false);
-});
+  });
+} // <--- YAHI BRACKET MISSING THA!
 
 // ── FIXED: PURE EMAIL SIGN-UP SUBMISSION ──
 function handleSignup(e) {

@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -53,30 +54,29 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// ── 4. SIGN UP ROUTE ──
+const bcrypt = require("bcrypt"); // Isko file mein sabse upar rehne dena
+
+// ── 4. SIGN UP ROUTE (FIXED WITH BCRYPT) ──
 app.post('/save', async (req, res) => {
     const { name, email, password } = req.body; 
 
     try {
-        if (!email) {
-            return res.status(400).send("Email address missing!");
-        }
-
+        if (!email) return res.status(400).send("Email address missing!");
         const cleanEmail = email.toString().toLowerCase().trim();
 
         const existingUser = await User.findOne({ email: cleanEmail });
-        if (existingUser) {
-            return res.send("पहले से रजिस्टर्ड");
-        }
+        if (existingUser) return res.send("पहले से रजिस्टर्ड");
+
+        // Password ko secure (hash) karna
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({ 
             name: name, 
             email: cleanEmail, 
-            password: password 
+            password: hashedPassword 
         });
 
         await newUser.save(); 
-        console.log(`[SUCCESS] New user saved in MongoDB: ${cleanEmail}`);
         res.send("Account Created Successfully");
     } catch (err) {
         console.error("MongoDB Sign-Up Save Error:", err);
@@ -84,37 +84,39 @@ app.post('/save', async (req, res) => {
     }
 });
 
-// ── 5. LOGIN ROUTE ──
+// ── 5. LOGIN ROUTE (FIXED WITH BCRYPT) ──
 app.post('/login', async (req, res) => {
     const { email, password } = req.body; 
 
     try {
-        if (!email) {
-            return res.json({ status: "Fail", message: "Email is required!" });
+        if (!email) return res.json({ status: "Fail", message: "Email is required!" });
+        const cleanEmail = email.toString().toLowerCase().trim();
+        
+        // Sirf email se user dhoondhna
+        const user = await User.findOne({ email: cleanEmail });
+        
+        if (!user) {
+            return res.json({ status: "Fail", message: "Invalid credentials!" });
         }
 
-        const cleanEmail = email.toString().toLowerCase().trim();
-        const user = await User.findOne({ email: cleanEmail, password: password });
+        // Hashed password ko compare karna
+        const match = await bcrypt.compare(password, user.password);
         
-        if (user) {
-            console.log(`[SUCCESS] User authenticated cleanly: ${cleanEmail}`);
-            res.json({
-                status: "Success",
-                name: user.name,
-                email: user.email
-            });
-        } else {
-            res.json({
-                status: "Fail",
-                message: "Invalid credentials!" 
-            });
+        if (!match) {
+            return res.json({ status: "Fail", message: "Invalid credentials!" });
         }
+
+        res.json({
+            status: "Success",
+            name: user.name,
+            email: user.email
+        });
+        
     } catch (err) {
         console.error("MongoDB Login Error:", err);
         res.status(500).json({ status: "Error", message: err.message });
     }
 });
-
 // ── 6. NODEMAILER CONFIGURATION ──
 const transporter = nodemailer.createTransport({
     service: 'gmail',
