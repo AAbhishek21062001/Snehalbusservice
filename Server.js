@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-const bcrypt = require("bcrypt"); // Isko file mein sabse upar rehne dena
+
 
 // ── 4. SIGN UP ROUTE (FIXED WITH BCRYPT) ──
 app.post('/save', async (req, res) => {
