@@ -119,10 +119,12 @@ app.post('/login', async (req, res) => {
 });
 // ── 6. NODEMAILER CONFIGURATION ──
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: { 
-        user: 'aabhishek21062001@gmail.com', 
-        pass: 'ejnuwytqyhtfndxm'  // अपना नया पासवर्ड बिना स्पेस के यहाँ चिपका दें
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // रेंडर की 5 मिनट वाली रुकावट को यही लाइन बायपास करेगी
+    auth: {
+        user: 'aabhishek21062001@gmail.com',
+        pass: 'ejnuwytqyhtfndxm'
     }
 });
 
